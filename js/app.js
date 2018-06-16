@@ -51,16 +51,16 @@ Player.prototype.handleInput = function (keyCode) {
     let adjustY = 0;
     switch (keyCode) {
         case 'up':
-            adjustY = -90;
+            adjustY = -83;
             break;
         case 'left':
-            adjustX = -90;
+            adjustX = -101;
             break;
         case 'right':
-            adjustX = 90;
+            adjustX = 101;
             break;
         case 'down':
-            adjustY = 90;
+            adjustY = 83;
             break;
         default:
             ;
@@ -75,7 +75,7 @@ Player.prototype.handleInput = function (keyCode) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-const player = new Player(200, 400);
+const player = new Player(202, 400);
 
 let enemy1 = new Enemy(1, 10);
 
