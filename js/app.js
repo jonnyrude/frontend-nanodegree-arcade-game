@@ -51,16 +51,16 @@ Player.prototype.handleInput = function (keyCode) {
     let adjustY = 0;
     switch (keyCode) {
         case 'up':
-            adjustY = -83;
+            adjustY = (player.y <= -15) ? 0 : -83;
             break;
         case 'left':
-            adjustX = -101;
+            adjustX = (player.x <= 0) ? 0 : -101;
             break;
         case 'right':
-            adjustX = 101;
+            adjustX = (player.x >= 404) ? 0 : 101;
             break;
         case 'down':
-            adjustY = 83;
+            adjustY = (player.y >= 400) ?0 : 83;
             break;
         default:
             ;
