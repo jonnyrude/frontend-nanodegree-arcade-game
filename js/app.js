@@ -3,8 +3,9 @@ var Enemy = function(row, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = -100;
-    this.y = row * 110;
+    this.y = row === 2 ? 60: (row === 3) ? 142: 225;
     this.speed = speed;
+    this.row = row; // to compare with player
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -16,7 +17,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += 10 * dt;
+    this.x += this.speed * dt;
     //console.log(dt);
 };
 
@@ -31,7 +32,8 @@ Enemy.prototype.render = function() {
 const Player = function (x, y) {
     this.x = x,
     this.y = y,
-    this.sprite = 'images/char-boy.png'
+    this.sprite = 'images/char-boy.png',
+    this.row = 6;
 }
 
 
@@ -52,6 +54,7 @@ Player.prototype.handleInput = function (keyCode) {
     switch (keyCode) {
         case 'up':
             adjustY = (player.y <= -15) ? 0 : -83;
+            player.row -= 1;
             break;
         case 'left':
             adjustX = (player.x <= 0) ? 0 : -101;
@@ -61,6 +64,7 @@ Player.prototype.handleInput = function (keyCode) {
             break;
         case 'down':
             adjustY = (player.y >= 400) ?0 : 83;
+            player.row += 1;
             break;
         default:
             ;
@@ -69,7 +73,8 @@ Player.prototype.handleInput = function (keyCode) {
     player.x += adjustX;
     player.y += adjustY;
 
-    console.log(`Player x: ${player.x}, Player y: ${player.y}`);
+    console.log(`Player x: ${player.x}, Player y: ${player.y}
+        Player.row: ${player.row}`);
 }
 
 // Now instantiate your objects.
@@ -77,9 +82,11 @@ Player.prototype.handleInput = function (keyCode) {
 // Place the player object in a variable called player
 const player = new Player(202, 400);
 
-let enemy1 = new Enemy(1, 10);
+let enemy1 = new Enemy(2, 60);
+let enemy2 = new Enemy(3, 60);
+let enemy3 = new Enemy(4, 60);
 
-const allEnemies = [enemy1];
+const allEnemies = [enemy1, enemy2, enemy3];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
