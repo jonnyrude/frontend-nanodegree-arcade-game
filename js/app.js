@@ -2,7 +2,7 @@
 var Enemy = function(row, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = -100;
+    this.x = - (Math.floor(Math.random() * 600) + 100);
     this.y = row === 2 ? 60: (row === 3) ? 142: 225;
     this.speed = speed;
     this.row = row; // to compare with player
@@ -25,6 +25,15 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Enemy.prototype.recycle = function() {
+    if (this.x > 600){
+        this.x = -(Math.floor(Math.random() * 400) + 100)
+        let newRow = Math.floor((Math.random() * 3)+ 2);
+        this.row = newRow;
+        this.y = newRow === 2 ? 60: (newRow === 3) ? 142: 225;
+    }
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -81,12 +90,18 @@ Player.prototype.handleInput = function (keyCode) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 const player = new Player(202, 400);
+const allEnemies = [];
 
-let enemy1 = new Enemy(2, 60);
-let enemy2 = new Enemy(3, 60);
-let enemy3 = new Enemy(4, 60);
+function addEnemies() {
+    while (allEnemies.length < 9) {
+        let row = Math.floor((Math.random() * 3)+ 2);
+        speed = Math.floor((Math.random() + 2) * 125);
+        newEnemy = new Enemy(row, speed);
+        allEnemies.push(newEnemy);
+    }
+}
 
-const allEnemies = [enemy1, enemy2, enemy3];
+addEnemies();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

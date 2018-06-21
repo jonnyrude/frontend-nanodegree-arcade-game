@@ -136,7 +136,6 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
         renderEntities();
     }
 
@@ -149,6 +148,7 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
         allEnemies.forEach(function(enemy) {
+            enemy.recycle();
             enemy.render();
         });
 
@@ -167,22 +167,19 @@ var Engine = (function(global) {
     }
 
     function checkCollisions() {
-
-
         for (enemy of allEnemies) {
-            // REMOVE
-                    // console.log(`enemy.x at ${enemy.x}`);
-
             if (player.row === enemy.row) {
                 if (enemy.x <= player.x + 70  && enemy.x >= player.x - 75) {
                     // COLLISION!!!
-                   // REMOVE
-                    // console.log('collision!' + `player.x: ${player.x}, enemy.x: ${enemy.x}`);
+                    console.log(`player.row: ${player.row}, enemy.row: ${enemy.row}`);
                     reset();
+                    return;
                 }
             }
         }
     }
+
+
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
