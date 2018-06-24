@@ -47,8 +47,15 @@ const Player = function (x, y) {
 
 
 Player.prototype.update = function (dt) {
-    // this.x += x;
-    // this.y += y;
+    if (this.row === 1) {
+        player.row = 6;
+        window.setTimeout( () => {
+            window.alert('You Win!');
+            player.x = 202;
+            player.y = 400;
+        }, 300);
+        return;
+    }
 
 }
 
@@ -57,23 +64,28 @@ ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
 Player.prototype.handleInput = function (keyCode) {
+    if(paused) {
+        return;
+    }
     console.log(keyCode);
-    let adjustX = 0;
-    let adjustY = 0;
+    let adjustX = 0,
+        adjustY = 0,
+        adjustRow = 0;
+
     switch (keyCode) {
         case 'up':
             adjustY = (player.y <= -15) ? 0 : -83;
-            player.row -= 1;
+            adjustRow = adjustY ? - 1 : 0;
             break;
-        case 'left':
+            case 'left':
             adjustX = (player.x <= 0) ? 0 : -101;
             break;
-        case 'right':
+            case 'right':
             adjustX = (player.x >= 404) ? 0 : 101;
             break;
-        case 'down':
-            adjustY = (player.y >= 400) ?0 : 83;
-            player.row += 1;
+            case 'down':
+            adjustY = (player.y >= 400) ? 0 : 83;
+            adjustRow = adjustY ? 1 : 0;
             break;
         default:
             ;
@@ -81,6 +93,7 @@ Player.prototype.handleInput = function (keyCode) {
 
     player.x += adjustX;
     player.y += adjustY;
+    player.row += adjustRow;
 
     console.log(`Player x: ${player.x}, Player y: ${player.y}
         Player.row: ${player.row}`);
@@ -115,3 +128,6 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+
