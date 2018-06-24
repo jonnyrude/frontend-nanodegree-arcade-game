@@ -21,7 +21,10 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
+        currentFrame = 0, // added for pause functionality
         lastTime;
+
+    this.paused = false;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -54,7 +57,7 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        win.requestAnimationFrame(main);
+        currentFrame = win.requestAnimationFrame(main);
     }
 
     /* This function does some initial setup that should only occur once,
@@ -148,7 +151,7 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
         allEnemies.forEach(function(enemy) {
-            enemy.recycle();
+            enemy.recycle(); // re-use enemey that has crossed the screen
             enemy.render();
         });
 
@@ -199,4 +202,17 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+
+    document.querySelector('.pause').addEventListener('click', () => {
+        console.log();  // REMOVE
+        if (!paused){
+            paused = true;
+            window.cancelAnimationFrame(currentFrame);
+        }
+        else {
+            paused = false;
+            currentFrame = window.requestAnimationFrame(main);
+        }
+    });
+
 })(this);
