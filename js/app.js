@@ -43,6 +43,7 @@ const Player = function (x, y) {
     this.y = y,
     this.sprite = 'images/char-boy.png',
     this.row = 6;
+    this.lives = 3;
 }
 
 
@@ -50,11 +51,16 @@ Player.prototype.update = function (dt) {
     if (this.row === 1) {
         player.row = 6;
         window.setTimeout( () => {
-            window.alert('You Win!');
+            window.alert('You Win!'); // pop-up div
             player.x = 202;
             player.y = 400;
         }, 300);
         return;
+    }
+
+    if (this.lives === 0) {
+        this.lives = -1;
+        window.alert('you lose...'); // pop-up div
     }
 
 }
@@ -129,5 +135,20 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+document.querySelector('.avatar-selector').addEventListener('click', (event) => {
+    document.querySelector('.selected').classList.toggle('selected');
 
+    let selection = event.target.classList;
 
+    if (selection.contains('avatar-1')) {
+        player.sprite = 'images/char-boy.png';
+    }
+    else if (selection.contains('avatar-2')) {
+        player.sprite = 'images/char-horn-girl.png'
+    }
+    else if (selection.contains('avatar-3')) {
+        player.sprite = 'images/char-princess-girl.png';
+    }
+
+    selection.toggle('selected')
+});

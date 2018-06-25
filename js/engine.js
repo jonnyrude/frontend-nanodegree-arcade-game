@@ -123,23 +123,31 @@ var Engine = (function(global) {
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
+
         /* Loop through the number of rows and columns we've defined above
-         * and, using the rowImages array, draw the correct image for that
-         * portion of the "grid"
-         */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
-                /* The drawImage function of the canvas' context element
-                 * requires 3 parameters: the image to draw, the x coordinate
-                 * to start drawing and the y coordinate to start drawing.
-                 * We're using our Resources helpers to refer to our images
-                 * so that we get the benefits of caching these images, since
-                 * we're using them over and over.
-                 */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+        * and, using the rowImages array, draw the correct image for that
+        * portion of the "grid"
+        */
+       for (row = 0; row < numRows; row++) {
+           for (col = 0; col < numCols; col++) {
+               /* The drawImage function of the canvas' context element
+               * requires 3 parameters: the image to draw, the x coordinate
+               * to start drawing and the y coordinate to start drawing.
+               * We're using our Resources helpers to refer to our images
+               * so that we get the benefits of caching these images, since
+               * we're using them over and over.
+               */
+              ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
         renderEntities();
+
+        // Draw Hearts:
+        heartX = 2;
+        for (let i = 0; i < player.lives; i++) {
+            ctx.drawImage(Resources.get('images/Heart.png'), heartX, -50);
+            heartX += 50
+        }
     }
 
     /* This function is called by the render function and is called on each game
@@ -176,6 +184,7 @@ var Engine = (function(global) {
                     // COLLISION!!!
                     console.log(`player.row: ${player.row}, enemy.row: ${enemy.row}`);
                     reset();
+                    player.lives -= 1;
                     return;
                 }
             }
@@ -193,7 +202,10 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Heart.png',
+        'images/char-horn-girl.png',
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 
@@ -203,7 +215,8 @@ var Engine = (function(global) {
      */
     global.ctx = ctx;
 
-    document.querySelector('.pause').addEventListener('click', () => {
+
+    this.pause = function () {
         console.log();  // REMOVE
         if (!paused){
             paused = true;
@@ -213,6 +226,10 @@ var Engine = (function(global) {
             paused = false;
             currentFrame = window.requestAnimationFrame(main);
         }
-    });
+
+    }
+
+    document.querySelector('.pause').addEventListener('click', pause);
+
 
 })(this);

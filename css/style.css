@@ -1,3 +1,38 @@
 body {
     text-align: center;
+    font-size: 30px;
+}
+
+
+.menu {
+    width: 505px;
+    margin: 0 auto;
+    height: 50px;
+    padding: 20px 0 10px 0;
+
+}
+
+ul {
+    list-style: none;
+    float: left;
+    margin: 0;
+    padding-left: 0;
+}
+
+li {
+    cursor: pointer;
+    display: inline;
+    padding: 3px;
+    text-decoration: underline;
+    text-decoration-color: lightgray;
+}
+
+span {
+    cursor: pointer;
+    float: right;
+}
+
+.selected {
+    text-decoration: underline;
+    text-decoration-color: black;
 }
