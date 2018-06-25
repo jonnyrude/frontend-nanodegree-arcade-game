@@ -145,7 +145,7 @@ var Engine = (function(global) {
         // Draw Hearts:
         heartX = 2;
         for (let i = 0; i < player.lives; i++) {
-            ctx.drawImage(Resources.get('images/Heart.png'), heartX, -50);
+            ctx.drawImage(Resources.get('images/Heart-small.png'), heartX, -10);
             heartX += 50
         }
     }
@@ -203,7 +203,7 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/Heart.png',
+        'images/Heart-small.png',
         'images/char-horn-girl.png',
         'images/char-princess-girl.png'
     ]);

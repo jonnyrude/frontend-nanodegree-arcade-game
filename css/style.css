@@ -6,9 +6,8 @@ body {
 
 .menu {
     width: 505px;
-    margin: 0 auto;
+    margin: 20px auto -20px auto;
     height: 50px;
-    padding: 20px 0 10px 0;
 
 }
 
