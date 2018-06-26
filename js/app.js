@@ -51,7 +51,7 @@ Player.prototype.update = function (dt) {
     if (this.row === 1) {
         player.row = 6;
         window.setTimeout( () => {
-            window.alert('You Win!'); // pop-up div
+            endGame(); // pop-up div
             player.x = 202;
             player.y = 400;
         }, 300);
@@ -60,7 +60,7 @@ Player.prototype.update = function (dt) {
 
     if (this.lives === 0) {
         this.lives = -1;
-        window.alert('you lose...'); // pop-up div
+        endGame(); // pop-up div
     }
 
 }
@@ -110,6 +110,8 @@ Player.prototype.handleInput = function (keyCode) {
 // Place the player object in a variable called player
 const player = new Player(202, 400);
 const allEnemies = [];
+const menu = document.querySelector('.win-lose');
+const menuMessage = document.querySelector('.message');
 
 function addEnemies() {
     while (allEnemies.length < 9) {
@@ -152,3 +154,28 @@ document.querySelector('.avatar-selector').addEventListener('click', (event) => 
 
     selection.toggle('selected')
 });
+
+
+document.querySelector('button').addEventListener('click', () => {
+    restartGame();
+})
+
+function restartGame() {
+    pause(); // unpause game
+    player.lives = 3;
+    menu.classList.toggle('hidden'); // hide menu
+}
+
+function endGame() {
+    pause();
+    document.querySelector('button').focus();
+
+    if(player.lives !== -1) {
+        menuMessage.textContent = 'You Won! Amazing!'
+    }
+    else {
+        menuMessage.textContent = 'Uh oh! You lost!'
+    }
+
+    menu.classList.toggle('hidden');
+}

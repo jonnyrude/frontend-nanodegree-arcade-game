@@ -40,7 +40,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
-        var now = Date.now(),
+         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
@@ -57,7 +57,7 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        currentFrame = win.requestAnimationFrame(main);
+        global.currentFrame = win.requestAnimationFrame(main);
     }
 
     /* This function does some initial setup that should only occur once,
