@@ -11,7 +11,7 @@ This game is written in JavaScript, and runs within an HTML canvas element.
 
 To open the game and get started, either:
 1. Download this project and open the `index.html` file, or
-2. [Play online]()
+2. [Play online](https://jonnyrude.github.io/udprojects/arcade_game/index.html)
 
 Controls:
 
@@ -24,4 +24,4 @@ Optionally, you may change the player's appearance by selecting a differnt avata
 Because this game is a course assingment, I'm afraid I won't be taking contributions to this code. However, if you are an experienced developer and would like to give me some feedback, please do! Send me an email at [jonnyrude@outlook.com](mailto:jonnyrude@outlook.com)
 
 ### Documentation
-I used this project to experiment creating documentation with JSdoc. Documentation for this project is probably overkill. However, you are more than welcome to [check out the documentation for this project]().
+I used this project to experiment creating documentation with JSdoc. Documentation for this project is probably overkill. However, you are more than welcome to [check out the documentation for this project](https://jonnyrude.github.io/udprojects/arcade_game/js/out/app.js.html).
