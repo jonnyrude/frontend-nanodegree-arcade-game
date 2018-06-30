@@ -170,6 +170,12 @@ addEnemies();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
+
+/**
+ * Listens for key presses (directional) and converts to an appropriate string
+ *
+ * @listens
+ */
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -181,6 +187,11 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+/**
+ * Allows player to select from 3 avatars
+ *
+ * @listens
+ */
 document.querySelector('.avatar-selector').addEventListener('click', (event) => {
     document.querySelector('.selected').classList.toggle('selected');
 
@@ -204,6 +215,9 @@ document.querySelector('button').addEventListener('click', () => {
     restartGame();
 })
 
+/**
+ * resets players lives, hides the menu with the "Play Again" button
+ */
 function restartGame() {
     pause(); // unpause game
     player.lives = 3;
@@ -211,6 +225,10 @@ function restartGame() {
     document.querySelector('button').setAttribute('disabled', '');
 }
 
+/**
+ * Display's the win/lost message, and presents a "Play Again" button
+ *
+ */
 function endGame() {
     pause();
     document.querySelector('button').removeAttribute('disabled');
