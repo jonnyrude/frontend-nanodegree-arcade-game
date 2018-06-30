@@ -1,6 +1,27 @@
-frontend-nanodegree-arcade-game
+Arcade Game Project
 ===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+## Udacity Front End Nanodegree project
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+### What is this?
+This is my submission for the Udacity Front End Nanodegree program (porject 3). The project is to complete a Frogger-like game using object oriented JavaScript programming.
+
+### How to Run this game:
+This game is written in JavaScript, and runs within an HTML canvas element.
+
+To open the game and get started, either:
+1. Download this project and open the `index.html` file, or
+2. [Play online]()
+
+Controls:
+
+Using the arrow keys, you must take the player accross the road and into the water at the top of the canvas. Take care to avoid the bugs! If you collide with one, you will lose a life, and will be forced start from the beginning.
+
+Optionally, you may change the player's appearance by selecting a differnt avatar. Click on a different number at the top of the screen to change your avatar.
+
+### Contribute
+
+Because this game is a course assingment, I'm afraid I won't be taking contributions to this code. However, if you are an experienced developer and would like to give me some feedback, please do! Send me an email at [jonnyrude@outlook.com](mailto:jonnyrude@outlook.com)
+
+### Documentation
+I used this project to experiment creating documentation with JSdoc. Documentation for this project is probably overkill. However, you are more than welcome to [check out the documentation for this project]().
