@@ -11,7 +11,7 @@
 var Enemy = function(row, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = - (Math.floor(Math.random() * 600) + 100);
+    this.x = - (Math.floor(Math.random() * 900) + 100);
     this.y = row === 2 ? 60: (row === 3) ? 142: 225;
     this.speed = speed;
     this.row = row; // to compare with player
@@ -164,7 +164,7 @@ const menuMessage = document.querySelector('.message');
 (function addEnemies() {
     while (allEnemies.length < 9) {
         let row = Math.floor((Math.random() * 3)+ 2);
-        speed = Math.floor((Math.random() + 2) * 125);
+        speed = Math.floor((Math.random() * 300) + 200);
         newEnemy = new Enemy(row, speed);
         allEnemies.push(newEnemy);
     }
