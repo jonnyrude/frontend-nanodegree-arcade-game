@@ -157,24 +157,27 @@ const allEnemies = [];
 const menu = document.querySelector('.win-lose');
 const menuMessage = document.querySelector('.message');
 
-function addEnemies() {
+
+/**
+ * Instantiates 9 enemies with random rows & speeds
+ */
+(function addEnemies() {
     while (allEnemies.length < 9) {
         let row = Math.floor((Math.random() * 3)+ 2);
         speed = Math.floor((Math.random() + 2) * 125);
         newEnemy = new Enemy(row, speed);
         allEnemies.push(newEnemy);
     }
-}
+})();
 
-addEnemies();
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 
 /**
- * Listens for key presses (directional) and converts to an appropriate string
+ * Listens for key presses (directional), converts to an
+ * appropriate string, sends to Player.handleInput() method
  *
- * @listens
+ * @event keyup
+ * @returns {string} 'left', 'up', 'right', or 'down'
  */
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
