@@ -208,10 +208,12 @@ function restartGame() {
     pause(); // unpause game
     player.lives = 3;
     menu.classList.toggle('hidden'); // hide menu
+    document.querySelector('button').setAttribute('disabled', '');
 }
 
 function endGame() {
     pause();
+    document.querySelector('button').removeAttribute('disabled');
     document.querySelector('button').focus();
 
     if(player.lives !== -1) {
