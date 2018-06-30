@@ -1,16 +1,14 @@
-// Enemies our player must avoid
-
 /**
- * Creates a new enemy bug to travel across the road
+ * Creates a new enemy bug to travel across the road/canvas
  *
  * @constructor
- * @this {Enemy}
  * @param {number} row=4 - Either 2, 3, or 4 = the row the bug will appear on
  * @param {number} speed - Speed bug will travel (ideal between 250-450)
+ *
+ * @property {number} x - Enemy's x position, randomly set between -100 and -900
+ * @property {string} sprite - Enemy's image (.png) drawn on canvas
  */
 var Enemy = function(row, speed) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
     this.x = - (Math.floor(Math.random() * 900) + 100);
     this.y = row === 2 ? 60: (row === 3) ? 142: 225;
     this.speed = speed;
@@ -23,20 +21,21 @@ var Enemy = function(row, speed) {
 /**
  * Update the enemy's position, required method for game
  *
- * @param {number} dt - a time delta between ticks provided by engine.js
+ * @function
+ * @param {number} dt - a time delta between ticks (globally provided by engine.js)
  */
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
+    // Multiplying any movement by the dt parameter
+    // ensures the game runs at the same speed for
     // all computers.
     this.x += this.speed * dt;
-    //console.log(dt);
 };
 
 
 /**
  * Draw the enemy on the canvas, required method for game
  *
+ *@function
  */
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -44,6 +43,8 @@ Enemy.prototype.render = function() {
 
 /**
  * Moves enemy so it will re-cross the canvas with new row
+ *
+ * @function
  */
 Enemy.prototype.recycle = function() {
     if (this.x > 600){
@@ -53,6 +54,7 @@ Enemy.prototype.recycle = function() {
         this.y = newRow === 2 ? 60: (newRow === 3) ? 142: 225;
     }
 }
+
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -76,6 +78,7 @@ const Player = function (x, y) {
 /**
  * Check status of player - win or loss
  *
+ * @function
  * @this {Player}
  * @param {number} dt - a time delta between ticks provided by engine.js
  */
@@ -100,6 +103,7 @@ Player.prototype.update = function (dt) {
 /**
  * Draws the player on the canvas
  *
+ * @function
  * @this {Player}
  */
 Player.prototype.render = function () {
@@ -110,6 +114,8 @@ ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 /**
  * Moves player when a keycode is passed from event listener
  *
+ * @function
+ * @listens keyup
  * @this {Player}
  * @param {string} keyCode - provided by event listener on key-ups
  */
@@ -144,22 +150,34 @@ Player.prototype.handleInput = function (keyCode) {
     player.x += adjustX;
     player.y += adjustY;
     player.row += adjustRow;
-
-    console.log(`Player x: ${player.x}, Player y: ${player.y}
-        Player.row: ${player.row}`);
 }
 
+
 // Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
+/**
+ * Instantiate a player object
+ *
+ * @type {Player}
+ */
 const player = new Player(202, 400);
+
+
+// Place all enemy objects in an array called allEnemies
+
+/**
+ * Array of enemy objects, this array is iterated and drawn to canvas
+ *
+ * @type {Enemy[]}
+ */
 const allEnemies = [];
-const menu = document.querySelector('.win-lose');
-const menuMessage = document.querySelector('.message');
 
 
 /**
- * Instantiates 9 enemies with random rows & speeds
+ * Instantiates 9 enemies with random rows & speeds into allEnemies array
+ *
+ * @function addEnemies
  */
 (function addEnemies() {
     while (allEnemies.length < 9) {
@@ -169,7 +187,6 @@ const menuMessage = document.querySelector('.message');
         allEnemies.push(newEnemy);
     }
 })();
-
 
 
 /**
@@ -190,16 +207,26 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+
+/**********************************************************************
+ *      FEATURE:        CHANGE AVATARS
+ ********************************************************************* */
+
 /**
  * Allows player to select from 3 avatars
  *
  * @listens
  */
 document.querySelector('.avatar-selector').addEventListener('click', (event) => {
+
+    // the .selected class adds style to indicate which avater is already chosen
+    // remove previous choice's selection
     document.querySelector('.selected').classList.toggle('selected');
 
+    // get selection (indicated by it's html class)
     let selection = event.target.classList;
 
+    // change avatar of player (player.sprite)
     if (selection.contains('avatar-1')) {
         player.sprite = 'images/char-boy.png';
     }
@@ -210,16 +237,62 @@ document.querySelector('.avatar-selector').addEventListener('click', (event) => 
         player.sprite = 'images/char-princess-girl.png';
     }
 
+    // indicate which option is selected with .selected class
     selection.toggle('selected')
 });
 
+/**********************************************************************
+ *       FEATURE:         WIN/LOST Message
+ ********************************************************************* */
+// grab the message <div> element
+const menu = document.querySelector('.win-lose');
 
+// grab the text to be displayed
+const menuMessage = document.querySelector('.message');
+
+
+/**
+ * Fired by Player.update - Display's the win/lost message,
+ * and provide a "Play Again" button
+ *
+ * @function endGame
+ */
+function endGame() {
+    pause();
+
+    // enable the button "Play Again"
+    document.querySelector('button').removeAttribute('disabled');
+
+    // focus on the button - easier to restart game with 'enter' key
+    document.querySelector('button').focus();
+
+    // Update win/lost message
+    if(player.lives !== -1) {
+        menuMessage.textContent = 'You Won! Amazing!'
+    }
+    else {
+        menuMessage.textContent = 'Uh oh! You lost!'
+    }
+
+    // display the win/lost message
+    menu.classList.toggle('hidden');
+}
+
+
+/**
+ * Event listener for "Play Again" button
+ *
+ * @listens
+ */
 document.querySelector('button').addEventListener('click', () => {
     restartGame();
 })
 
+
 /**
- * resets players lives, hides the menu with the "Play Again" button
+ * Resets players lives, hides the menu with the "Play Again" button
+ *
+ * @function restartGame
  */
 function restartGame() {
     pause(); // unpause game
@@ -228,21 +301,3 @@ function restartGame() {
     document.querySelector('button').setAttribute('disabled', '');
 }
 
-/**
- * Display's the win/lost message, and presents a "Play Again" button
- *
- */
-function endGame() {
-    pause();
-    document.querySelector('button').removeAttribute('disabled');
-    document.querySelector('button').focus();
-
-    if(player.lives !== -1) {
-        menuMessage.textContent = 'You Won! Amazing!'
-    }
-    else {
-        menuMessage.textContent = 'Uh oh! You lost!'
-    }
-
-    menu.classList.toggle('hidden');
-}
