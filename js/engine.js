@@ -21,7 +21,12 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
+        currentFrame = 0, // added for pause functionality
         lastTime;
+
+/*** New global variable for pause function
+ *         this is global for easy access in app.js ***************************** */
+    this.paused = false;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -37,7 +42,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
-        var now = Date.now(),
+         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
@@ -54,7 +59,7 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        win.requestAnimationFrame(main);
+        currentFrame = win.requestAnimationFrame(main);
     }
 
     /* This function does some initial setup that should only occur once,
@@ -78,6 +83,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
+/*** Added checkCollisions ***************************************** */
         checkCollisions();
     }
 
@@ -120,23 +126,31 @@ var Engine = (function(global) {
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
+
         /* Loop through the number of rows and columns we've defined above
-         * and, using the rowImages array, draw the correct image for that
-         * portion of the "grid"
-         */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
-                /* The drawImage function of the canvas' context element
-                 * requires 3 parameters: the image to draw, the x coordinate
-                 * to start drawing and the y coordinate to start drawing.
-                 * We're using our Resources helpers to refer to our images
-                 * so that we get the benefits of caching these images, since
-                 * we're using them over and over.
-                 */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+        * and, using the rowImages array, draw the correct image for that
+        * portion of the "grid"
+        */
+       for (row = 0; row < numRows; row++) {
+           for (col = 0; col < numCols; col++) {
+               /* The drawImage function of the canvas' context element
+               * requires 3 parameters: the image to draw, the x coordinate
+               * to start drawing and the y coordinate to start drawing.
+               * We're using our Resources helpers to refer to our images
+               * so that we get the benefits of caching these images, since
+               * we're using them over and over.
+               */
+              ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
         renderEntities();
+
+/* *****************  Draw Hearts to the screen ****************************/
+        heartX = 2;
+        for (let i = 0; i < player.lives; i++) {
+            ctx.drawImage(Resources.get('images/Heart-small.png'), heartX, -10);
+            heartX += 50
+        }
     }
 
     /* This function is called by the render function and is called on each game
@@ -148,7 +162,10 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
         allEnemies.forEach(function(enemy) {
+
+/* **************** re-use enemey that has crossed the screen *************** */
             enemy.recycle();
+
             enemy.render();
         });
 
@@ -159,20 +176,23 @@ var Engine = (function(global) {
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
+
+/*** reset - will reset player on a collision
+ * Used by checkCollision() below ****************************************** */
     function reset() {
         player.x = 202;
         player.y = 400;
         player.row = 6;
-        // player.render();
     }
 
+/*** Checks for collisions! ************************************************* */
     function checkCollisions() {
         for (enemy of allEnemies) {
             if (player.row === enemy.row) {
                 if (enemy.x <= player.x + 70  && enemy.x >= player.x - 75) {
                     // COLLISION!!!
-                    console.log(`player.row: ${player.row}, enemy.row: ${enemy.row}`);
                     reset();
+                    player.lives -= 1;
                     return;
                 }
             }
@@ -190,7 +210,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+/**** Added images needed for lives & added avatars ********************************* */
+        'images/Heart-small.png',
+        'images/char-horn-girl.png',
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 
@@ -199,4 +223,30 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+
+
+    this.pause = function () {
+
+        const pauseControl = document.querySelector('.pause');
+
+        console.log();  // REMOVE
+        if (!paused){
+            paused = true;
+            window.cancelAnimationFrame(currentFrame);
+            pauseControl.textContent = 'PAUSED';
+        }
+        else {
+            paused = false;
+            currentFrame = window.requestAnimationFrame(main);
+            pauseControl.textContent = 'Pause'
+        }
+
+        // adds style when paused to indicate paused state
+        pauseControl.classList.toggle('isPaused');
+
+    }
+
+    document.querySelector('.pause').addEventListener('click', pause);
+
+
 })(this);
