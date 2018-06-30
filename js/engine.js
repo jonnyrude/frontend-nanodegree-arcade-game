@@ -24,7 +24,8 @@ var Engine = (function(global) {
         currentFrame = 0, // added for pause functionality
         lastTime;
 
-/*** New global variable for pause function **************************************** */
+/*** New global variable for pause function
+ *         this is global for easy access in app.js ***************************** */
     this.paused = false;
 
     canvas.width = 505;
@@ -58,7 +59,7 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        global.currentFrame = win.requestAnimationFrame(main);
+        currentFrame = win.requestAnimationFrame(main);
     }
 
     /* This function does some initial setup that should only occur once,
@@ -225,15 +226,23 @@ var Engine = (function(global) {
 
 
     this.pause = function () {
+
+        const pauseControl = document.querySelector('.pause');
+
         console.log();  // REMOVE
         if (!paused){
             paused = true;
             window.cancelAnimationFrame(currentFrame);
+            pauseControl.textContent = 'PAUSED';
         }
         else {
             paused = false;
             currentFrame = window.requestAnimationFrame(main);
+            pauseControl.textContent = 'Pause'
         }
+
+        // adds style when paused to indicate paused state
+        pauseControl.classList.toggle('isPaused');
 
     }
 

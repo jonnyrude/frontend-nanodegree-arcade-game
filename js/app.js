@@ -120,7 +120,7 @@ ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
  * @param {string} keyCode - provided by event listener on key-ups
  */
 Player.prototype.handleInput = function (keyCode) {
-    if(paused) {
+    if(paused || !inPlay) {
         return;
     }
 
@@ -155,6 +155,10 @@ Player.prototype.handleInput = function (keyCode) {
 
 // Now instantiate your objects.
 // Place the player object in a variable called player
+
+// Variable to record play state (no player movement after game ends)
+let inPlay = true;
+
 
 /**
  * Instantiate a player object
@@ -258,7 +262,7 @@ const menuMessage = document.querySelector('.message');
  * @function endGame
  */
 function endGame() {
-    pause();
+    inPlay = false;
 
     // enable the button "Play Again"
     document.querySelector('button').removeAttribute('disabled');
@@ -295,7 +299,7 @@ document.querySelector('button').addEventListener('click', () => {
  * @function restartGame
  */
 function restartGame() {
-    pause(); // unpause game
+    inPlay = true; // unpause game
     player.lives = 3;
     menu.classList.toggle('hidden'); // hide menu
     document.querySelector('button').setAttribute('disabled', '');
