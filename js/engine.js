@@ -24,6 +24,7 @@ var Engine = (function(global) {
         currentFrame = 0, // added for pause functionality
         lastTime;
 
+/*** New global variable for pause function **************************************** */
     this.paused = false;
 
     canvas.width = 505;
@@ -81,6 +82,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
+/*** Added checkCollisions ***************************************** */
         checkCollisions();
     }
 
@@ -142,7 +144,7 @@ var Engine = (function(global) {
         }
         renderEntities();
 
-        // Draw Hearts:
+/* *****************  Draw Hearts to the screen ****************************/
         heartX = 2;
         for (let i = 0; i < player.lives; i++) {
             ctx.drawImage(Resources.get('images/Heart-small.png'), heartX, -10);
@@ -159,7 +161,10 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
         allEnemies.forEach(function(enemy) {
-            enemy.recycle(); // re-use enemey that has crossed the screen
+
+/* **************** re-use enemey that has crossed the screen *************** */
+            enemy.recycle();
+
             enemy.render();
         });
 
@@ -170,19 +175,21 @@ var Engine = (function(global) {
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
+
+/*** reset - will reset player on a collision
+ * Used by checkCollision() below ****************************************** */
     function reset() {
         player.x = 202;
         player.y = 400;
         player.row = 6;
-        // player.render();
     }
 
+/*** Checks for collisions! ************************************************* */
     function checkCollisions() {
         for (enemy of allEnemies) {
             if (player.row === enemy.row) {
                 if (enemy.x <= player.x + 70  && enemy.x >= player.x - 75) {
                     // COLLISION!!!
-                    console.log(`player.row: ${player.row}, enemy.row: ${enemy.row}`);
                     reset();
                     player.lives -= 1;
                     return;
@@ -203,6 +210,7 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
+/**** Added images needed for lives & added avatars ********************************* */
         'images/Heart-small.png',
         'images/char-horn-girl.png',
         'images/char-princess-girl.png'
