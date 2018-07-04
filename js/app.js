@@ -24,6 +24,38 @@ Sprite.prototype.render = function () {
 };
 
 
+/**
+ * Create Heart class that inherits from Sprite class
+ *
+ * @constructor
+ * @property {number} x - x-position on canvas set to 2
+ * @property {number} y - y-position on canvas, set to -10
+ * @property {string} sprite - set to the path/file for this .png image
+ */
+const Hearts = function() {
+    Sprite.call(this, 2, -10, 'images/Heart-small.png');
+};
+
+// Set Heart to inherit from Sprite
+Hearts.prototype = Object.create(Sprite.prototype);
+
+// Change Heart's constructor reference from Sprite() to Heart()
+Hearts.prototype.constructor = Hearts;
+
+/**
+ * Unique render function for Hearts - renders as many images as there
+ * are player.lives remaining
+ *
+ * @method
+ */
+Hearts.prototype.render = function() {
+    let heartX = this.x;
+    for (let i = 0; i < player.lives; i++) {
+        ctx.drawImage(Resources.get(this.sprite), heartX, this.y);
+        heartX += 50; // set next heart image 50px further down x-axis of canvas
+    }
+}
+
 
 /**
  * Creates a new Enemy (bug) class, inehrits from Sprite class, to
@@ -194,7 +226,7 @@ let inPlay = true;
  * @type {Player}
  */
 const player = new Player(202, 400);
-
+const lives = new Hearts();
 
 // Place all enemy objects in an array called allEnemies
 

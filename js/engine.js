@@ -144,13 +144,6 @@ const Engine = (function(global) {
             }
         }
         renderEntities();
-
-/* *****************  Draw Hearts to the screen ****************************/
-        heartX = 2;
-        for (let i = 0; i < player.lives; i++) {
-            ctx.drawImage(Resources.get('images/Heart-small.png'), heartX, -10);
-            heartX += 50;
-        }
     }
 
     /* This function is called by the render function and is called on each game
@@ -166,6 +159,7 @@ const Engine = (function(global) {
         });
 
         player.render();
+        lives.render(); // renders Hearts to the screen
     }
 
 /*** Checks for collisions! ************************************************* */
