@@ -8,7 +8,7 @@
  * @property {number} x - Enemy's x position, randomly set between -100 and -900
  * @property {string} sprite - Enemy's image (.png) drawn on canvas
  */
-var Enemy = function(row, speed) {
+var Enemy = function (row, speed) {
     this.x = - (Math.floor(Math.random() * 900) + 100);
     this.y = row === 2 ? 60: (row === 3) ? 142: 225;
     this.speed = speed;
@@ -48,12 +48,12 @@ Enemy.prototype.render = function() {
  */
 Enemy.prototype.recycle = function() {
     if (this.x > 600){
-        this.x = -(Math.floor(Math.random() * 400) + 100)
+        this.x = -(Math.floor(Math.random() * 400) + 100);
         let newRow = Math.floor((Math.random() * 3)+ 2);
         this.row = newRow;
         this.y = newRow === 2 ? 60: (newRow === 3) ? 142: 225;
     }
-}
+};
 
 
 // Now write your own player class
@@ -73,7 +73,7 @@ const Player = function (x, y) {
     this.sprite = 'images/char-boy.png',
     this.row = 6;
     this.lives = 3;
-}
+};
 
 /**
  * Check status of player - win or loss
@@ -84,11 +84,11 @@ const Player = function (x, y) {
  */
 Player.prototype.update = function (dt) {
     if (this.row === 1) {
-        player.row = 6;
+        this.row = 6;
         window.setTimeout( () => {
             endGame(); // pop-up div
-            player.x = 202;
-            player.y = 400;
+            this.x = 202;
+            this.y = 400;
         }, 300);
         return;
     }
@@ -97,8 +97,7 @@ Player.prototype.update = function (dt) {
         this.lives = -1;
         endGame(); // pop-up div
     }
-
-}
+};
 
 /**
  * Draws the player on the canvas
@@ -107,8 +106,8 @@ Player.prototype.update = function (dt) {
  * @this {Player}
  */
 Player.prototype.render = function () {
-ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 
 /**
@@ -130,27 +129,25 @@ Player.prototype.handleInput = function (keyCode) {
 
     switch (keyCode) {
         case 'up':
-            adjustY = (player.y <= -15) ? 0 : -83;
+            adjustY = (this.y <= -15) ? 0 : -83;
             adjustRow = adjustY ? - 1 : 0;
             break;
             case 'left':
-            adjustX = (player.x <= 0) ? 0 : -101;
+            adjustX = (this.x <= 0) ? 0 : -101;
             break;
             case 'right':
-            adjustX = (player.x >= 404) ? 0 : 101;
+            adjustX = (this.x >= 404) ? 0 : 101;
             break;
             case 'down':
-            adjustY = (player.y >= 400) ? 0 : 83;
+            adjustY = (this.y >= 400) ? 0 : 83;
             adjustRow = adjustY ? 1 : 0;
             break;
-        default:
-            ;
     }
 
-    player.x += adjustX;
-    player.y += adjustY;
-    player.row += adjustRow;
-}
+    this.x += adjustX;
+    this.y += adjustY;
+    this.row += adjustRow;
+};
 
 
 // Now instantiate your objects.
@@ -235,14 +232,14 @@ document.querySelector('.avatar-selector').addEventListener('click', (event) => 
         player.sprite = 'images/char-boy.png';
     }
     else if (selection.contains('avatar-2')) {
-        player.sprite = 'images/char-horn-girl.png'
+        player.sprite = 'images/char-horn-girl.png';
     }
     else if (selection.contains('avatar-3')) {
         player.sprite = 'images/char-princess-girl.png';
     }
 
     // indicate which option is selected with .selected class
-    selection.toggle('selected')
+    selection.toggle('selected');
 });
 
 /**********************************************************************
@@ -272,10 +269,10 @@ function endGame() {
 
     // Update win/lost message
     if(player.lives !== -1) {
-        menuMessage.textContent = 'You Won! Amazing!'
+        menuMessage.textContent = 'You Won! Amazing!';
     }
     else {
-        menuMessage.textContent = 'Uh oh! You lost!'
+        menuMessage.textContent = 'Uh oh! You lost!';
     }
 
     // display the win/lost message
@@ -290,7 +287,7 @@ function endGame() {
  */
 document.querySelector('button').addEventListener('click', () => {
     restartGame();
-})
+});
 
 
 /**
