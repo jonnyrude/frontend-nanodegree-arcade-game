@@ -1,27 +1,62 @@
 /**
- * Creates a new enemy bug to travel across the road/canvas
+ * Sprite class is a parent class for Enemy, Player, and Hearts
+ * (anything drawn to the screen with an image/sprite)
+ *
+ * @constructor
+ * @param {number} x - x-position on the canvas
+ * @param {number} y - y-position on the canvas
+ * @param {string} sprite - the image path/file to use
+ */
+const Sprite = function (x, y, sprite) {
+    this.x = x;
+    this.y = y;
+    this.sprite = sprite;
+}
+
+/**
+ * Draw the Sprite on the canvas, required method for game, using
+ * the this.x, this.y position and this.sprite image
+ *
+ *@method render
+ */
+Sprite.prototype.render = function () {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
+
+
+/**
+ * Creates a new Enemy (bug) class, inehrits from Sprite class, to
+ * travel across the road/canvas
  *
  * @constructor
  * @param {number} row=4 - Either 2, 3, or 4 = the row the bug will appear on
- * @param {number} speed - Speed bug will travel (ideal between 250-450)
  *
- * @property {number} x - Enemy's x position, randomly set between -100 and -900
- * @property {string} sprite - Enemy's image (.png) drawn on canvas
+ * @property {number} row - Enemy's y-position, set as a parameter when instantiating
+ * @property {number} speed - Speed that Enemy will move across the screen
  */
-var Enemy = function (row, speed) {
-    this.x = - (Math.floor(Math.random() * 900) + 100);
-    this.y = row === 2 ? 60: (row === 3) ? 142: 225;
-    this.speed = speed;
+const Enemy = function (row) {
+    // Create Enemy Object from Sprite Class
+    let x = - (Math.floor(Math.random() * 900) + 100);
+    let y = row === 2 ? 60: (row === 3) ? 142: 225;
+    Sprite.call(this, x, y, 'images/enemy-bug.png');
+
+    this.speed = Math.floor((Math.random() * 300) + 200);;
     this.row = row; // to compare with player
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
 };
+
+// Set Enemy to inherit from Sprite class
+Enemy.prototype = Object.create(Sprite.prototype);
+
+// Set Enemy's constructor function to Enemy() (instead of Sprite())
+Enemy.prototype.constructor = Enemy;
 
 /**
  * Update the enemy's position, required method for game
  *
- * @function
+ * @method
  * @param {number} dt - a time delta between ticks (globally provided by engine.js)
  */
 Enemy.prototype.update = function(dt) {
@@ -31,20 +66,10 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 };
 
-
-/**
- * Draw the enemy on the canvas, required method for game
- *
- *@function
- */
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
 /**
  * Moves enemy so it will re-cross the canvas with new row
  *
- * @function
+ * @method
  */
 Enemy.prototype.recycle = function() {
     if (this.x > 600){
@@ -64,21 +89,29 @@ Enemy.prototype.recycle = function() {
  * Creates a player object
  *
  * @constructor
- * @param {number} x
- * @param {number} y
+ * @param {number} x - x-position on canvas
+ * @param {number} y - y-position on canvas
+ *
+ * @property {number} row - starting at 6, row player is currently on
+ * @property {number} lives - starting with 3 number of remaining lives
  */
 const Player = function (x, y) {
-    this.x = x,
-    this.y = y,
-    this.sprite = 'images/char-boy.png',
+    Sprite.call(this, x, y, 'images/char-boy.png')
+
     this.row = 6;
     this.lives = 3;
 };
 
+// Set Player class to inherit from Sprite class
+Player.prototype = Object.create(Sprite.prototype);
+
+// Set Player constructor to Player() (instead of Sprite())
+Player.prototype.constructor = Player;
+
 /**
  * Check status of player - win or loss
  *
- * @function
+ * @method
  * @this {Player}
  * @param {number} dt - a time delta between ticks provided by engine.js
  */
@@ -100,20 +133,9 @@ Player.prototype.update = function (dt) {
 };
 
 /**
- * Draws the player on the canvas
- *
- * @function
- * @this {Player}
- */
-Player.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-
-/**
  * Moves player when a keycode is passed from event listener
  *
- * @function
+ * @method
  * @listens keyup
  * @this {Player}
  * @param {string} keyCode - provided by event listener on key-ups
@@ -183,8 +205,8 @@ const allEnemies = [];
 (function addEnemies() {
     while (allEnemies.length < 9) {
         let row = Math.floor((Math.random() * 3)+ 2);
-        speed = Math.floor((Math.random() * 300) + 200);
-        newEnemy = new Enemy(row, speed);
+
+        newEnemy = new Enemy(row);
         allEnemies.push(newEnemy);
     }
 })();
