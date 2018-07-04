@@ -189,6 +189,10 @@ var Engine = (function(global) {
                     // COLLISION!!!
                     reset();
                     player.lives -= 1;
+                    if (player.lives === 0) {
+                        player.lives = -1;
+                        endGame(); // pop-up div
+                    }
                     return;
                 }
             }

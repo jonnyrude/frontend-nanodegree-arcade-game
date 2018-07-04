@@ -126,11 +126,6 @@ Player.prototype.update = function (dt) {
         }, 300);
         return;
     }
-
-    if (this.lives === 0) {
-        this.lives = -1;
-        endGame(); // pop-up div
-    }
 };
 
 /**
