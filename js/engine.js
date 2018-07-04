@@ -162,10 +162,6 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
         allEnemies.forEach(function(enemy) {
-
-/* **************** re-use enemey that has crossed the screen *************** */
-            enemy.recycle();
-
             enemy.render();
         });
 
