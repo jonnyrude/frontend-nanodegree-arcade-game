@@ -170,6 +170,16 @@ Player.prototype.handleInput = function (keyCode) {
     }
 };
 
+/**
+ * Reset player back to original position (used on win, loss, or collision)
+ *
+ * @method reset
+ */
+Player.prototype.reset = function() {
+    this.x = 202;
+    this.y = 400;
+    this.row = 6;
+}
 
 // Now instantiate your objects.
 // Place the player object in a variable called player
@@ -219,7 +229,7 @@ const allEnemies = [];
  * @returns {string} 'left', 'up', 'right', or 'down'
  */
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+    const allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',

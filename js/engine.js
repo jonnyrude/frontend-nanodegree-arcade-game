@@ -12,12 +12,12 @@
  * writing app.js a little simpler to work with.
  */
 
-var Engine = (function(global) {
+const Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
-    var doc = global.document,
+    let doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
@@ -42,7 +42,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
-         var now = Date.now(),
+         let now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
@@ -67,7 +67,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
+        player.reset();
         lastTime = Date.now();
         main();
     }
@@ -111,7 +111,7 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
+        let rowImages = [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
@@ -168,27 +168,16 @@ var Engine = (function(global) {
         player.render();
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
-
-/*** reset - will reset player on a collision
- * Used by checkCollision() below ****************************************** */
-    function reset() {
-        player.x = 202;
-        player.y = 400;
-        player.row = 6;
-    }
-
 /*** Checks for collisions! ************************************************* */
     function checkCollisions() {
         for (enemy of allEnemies) {
             if (player.row === enemy.row) {
                 if (enemy.x <= player.x + 70  && enemy.x >= player.x - 75) {
                     // COLLISION!!!
-                    reset();
                     player.lives -= 1;
+                    player.reset();
+
+                    // End game if player is out of lives
                     if (player.lives === 0) {
                         player.lives = -1;
                         endGame(); // pop-up div
