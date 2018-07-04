@@ -116,16 +116,8 @@ Player.prototype.constructor = Player;
  * @this {Player}
  * @param {number} dt - a time delta between ticks provided by engine.js
  */
-Player.prototype.update = function (dt) {
-    if (this.row === 1) {
-        this.row = 6;
-        window.setTimeout( () => {
-            endGame(); // pop-up div
-            this.x = 202;
-            this.y = 400;
-        }, 300);
-        return;
-    }
+Player.prototype.update = function () {
+    return;
 };
 
 /**
@@ -165,6 +157,17 @@ Player.prototype.handleInput = function (keyCode) {
     this.x += adjustX;
     this.y += adjustY;
     this.row += adjustRow;
+
+    // Evaluate if player has won by reaching row 1
+    if (this.row === 1) {
+        this.row = 6;
+        window.setTimeout( () => {
+            endGame(); // pop-up div
+            this.x = 202;
+            this.y = 400;
+        }, 300);
+        return;
+    }
 };
 
 
