@@ -68,13 +68,14 @@ Hearts.prototype.render = function() {
  * @property {number} speed - Speed that Enemy will move across the screen
  */
 const Enemy = function (row) {
+    this.row = row; // to compare with player
+
     // Create Enemy Object from Sprite Class
     let x = - (Math.floor(Math.random() * 900) + 100);
     let y = row === 2 ? 60: (row === 3) ? 142: 225;
     Sprite.call(this, x, y, 'images/enemy-bug.png');
 
     this.speed = Math.floor((Math.random() * 300) + 200);
-    this.row = row; // to compare with player
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
 };
