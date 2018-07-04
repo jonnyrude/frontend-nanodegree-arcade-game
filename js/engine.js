@@ -124,7 +124,7 @@ const Engine = (function(global) {
             row, col;
 
         // Before drawing, clear existing canvas
-        ctx.clearRect(0,0,canvas.width,canvas.height)
+        ctx.clearRect(0,0,canvas.width,canvas.height);
 
 
         /* Loop through the number of rows and columns we've defined above
@@ -149,7 +149,7 @@ const Engine = (function(global) {
         heartX = 2;
         for (let i = 0; i < player.lives; i++) {
             ctx.drawImage(Resources.get('images/Heart-small.png'), heartX, -10);
-            heartX += 50
+            heartX += 50;
         }
     }
 
@@ -170,7 +170,7 @@ const Engine = (function(global) {
 
 /*** Checks for collisions! ************************************************* */
     function checkCollisions() {
-        for (enemy of allEnemies) {
+        for (const enemy of allEnemies) {
             if (player.row === enemy.row) {
                 if (enemy.x <= player.x + 70  && enemy.x >= player.x - 75) {
                     // COLLISION!!!
@@ -227,13 +227,13 @@ const Engine = (function(global) {
         else {
             paused = false;
             currentFrame = window.requestAnimationFrame(main);
-            pauseControl.textContent = 'Pause'
+            pauseControl.textContent = 'Pause';
         }
 
         // adds style when paused to indicate paused state
         pauseControl.classList.toggle('isPaused');
 
-    }
+    };
 
     document.querySelector('.pause').addEventListener('click', pause);
 

@@ -11,7 +11,7 @@ const Sprite = function (x, y, sprite) {
     this.x = x;
     this.y = y;
     this.sprite = sprite;
-}
+};
 
 /**
  * Draw the Sprite on the canvas, required method for game, using
@@ -21,7 +21,7 @@ const Sprite = function (x, y, sprite) {
  */
 Sprite.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 
 
@@ -41,7 +41,7 @@ const Enemy = function (row) {
     let y = row === 2 ? 60: (row === 3) ? 142: 225;
     Sprite.call(this, x, y, 'images/enemy-bug.png');
 
-    this.speed = Math.floor((Math.random() * 300) + 200);;
+    this.speed = Math.floor((Math.random() * 300) + 200);
     this.row = row; // to compare with player
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -97,7 +97,7 @@ Enemy.prototype.recycle = function() {
  * @property {number} lives - starting with 3 number of remaining lives
  */
 const Player = function (x, y) {
-    Sprite.call(this, x, y, 'images/char-boy.png')
+    Sprite.call(this, x, y, 'images/char-boy.png');
 
     this.row = 6;
     this.lives = 3;
@@ -179,7 +179,7 @@ Player.prototype.reset = function() {
     this.x = 202;
     this.y = 400;
     this.row = 6;
-}
+};
 
 // Now instantiate your objects.
 // Place the player object in a variable called player
