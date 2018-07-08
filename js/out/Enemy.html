@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Enemy<span class="signature">(row, speed)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Enemy<span class="signature">(row)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="Enemy"><span class="type-signature"></span>new Enemy<span class="signature">(row, speed)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Enemy"><span class="type-signature"></span>new Enemy<span class="signature">(row)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,7 +49,7 @@
 
 
 <div class="description">
-    Creates a new enemy bug to travel across the road/canvas
+    Creates a new Enemy (bug) class, inehrits from Sprite class, totravel across the road/canvas
 </div>
 
 
@@ -113,33 +113,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>speed</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Speed bug will travel (ideal between 250-450)</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -174,7 +147,7 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>row</code></td>
             
 
             <td class="type">
@@ -190,20 +163,20 @@
 
             
 
-            <td class="description last">Enemy's x position, randomly set between -100 and -900</td>
+            <td class="description last">Enemy's y-position, set as a parameter when instantiating</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>sprite</code></td>
+                <td class="name"><code>speed</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -213,7 +186,7 @@
 
             
 
-            <td class="description last">Enemy's image (.png) drawn on canvas</td>
+            <td class="description last">Speed that Enemy will move across the screen</td>
         </tr>
 
     
@@ -252,7 +225,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line11">line 11</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -358,93 +331,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line49">line 49</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Draw the enemy on the canvas, required method for game
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line40">line 40</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -579,7 +466,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line27">line 27</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line93">line 93</a>
     </li></ul></dd>
     
 
@@ -623,13 +510,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Enemy.html">Enemy</a></li><li><a href="Player.html">Player</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keyup">keyup</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addEnemies">addEnemies</a></li><li><a href="global.html#allEnemies">allEnemies</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#player">player</a></li><li><a href="global.html#restartGame">restartGame</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Enemy.html">Enemy</a></li><li><a href="Hearts.html">Hearts</a></li><li><a href="Player.html">Player</a></li><li><a href="Sprite.html">Sprite</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keyup">keyup</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addEnemies">addEnemies</a></li><li><a href="global.html#allEnemies">allEnemies</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#lives">lives</a></li><li><a href="global.html#player">player</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#restartGame">restartGame</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Jun 30 2018 09:11:03 GMT-0600 (Mountain Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jul 08 2018 09:12:50 GMT-0600 (Mountain Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
