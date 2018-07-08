@@ -250,7 +250,7 @@ const allEnemies = [];
     while (allEnemies.length < 9) {
         let row = Math.floor((Math.random() * 3)+ 2);
 
-        newEnemy = new Enemy(row);
+        let newEnemy = new Enemy(row);
         allEnemies.push(newEnemy);
     }
 })();
