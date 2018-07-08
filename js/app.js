@@ -46,7 +46,7 @@ Hearts.prototype.constructor = Hearts;
  * Unique render function for Hearts - renders as many images as there
  * are player.lives remaining
  *
- * @method
+ * @method render
  */
 Hearts.prototype.render = function() {
     let heartX = this.x;
@@ -76,8 +76,6 @@ const Enemy = function (row) {
     Sprite.call(this, x, y, 'images/enemy-bug.png');
 
     this.speed = Math.floor((Math.random() * 300) + 200);
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
 };
 
 // Set Enemy to inherit from Sprite class
@@ -142,16 +140,13 @@ Player.prototype = Object.create(Sprite.prototype);
 // Set Player constructor to Player() (instead of Sprite())
 Player.prototype.constructor = Player;
 
-/**
- * Check status of player - win or loss
- *
+/*
+ *Empty method - could be used to animate player movment
  * @method
- * @this {Player}
- * @param {number} dt - a time delta between ticks provided by engine.js
  */
-Player.prototype.update = function () {
-    return;
-};
+// Player.prototype.update = function () {
+//     return;
+// };
 
 /**
  * Moves player when a keycode is passed from event listener
@@ -162,6 +157,7 @@ Player.prototype.update = function () {
  * @param {string} keyCode - provided by event listener on key-ups
  */
 Player.prototype.handleInput = function (keyCode) {
+    // do not move player if game is lost, won, or paused
     if(paused || !inPlay) {
         return;
     }
@@ -227,6 +223,12 @@ let inPlay = true;
  * @type {Player}
  */
 const player = new Player(202, 400);
+
+/**
+ * Instantiate heart object
+ *
+ * @type {Hearts}
+ */
 const lives = new Hearts();
 
 // Place all enemy objects in an array called allEnemies
@@ -317,7 +319,7 @@ const menuMessage = document.querySelector('.message');
 
 
 /**
- * Fired by Player.update - Display's the win/lost message,
+ * Fired by Player.handleInput - Display's the win/lost message,
  * and provide a "Play Again" button
  *
  * @function endGame

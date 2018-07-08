@@ -98,7 +98,7 @@ const Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        // player.update();  This method is not used in my project
     }
 
     /* This function initially draws the "game level", it will then call

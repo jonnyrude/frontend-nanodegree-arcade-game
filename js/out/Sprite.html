@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Player</title>
+    <title>JSDoc: Class: Sprite</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Player</h1>
+    <h1 class="page-title">Class: Sprite</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Player<span class="signature">(x, y)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Sprite<span class="signature">(x, y, sprite)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="Player"><span class="type-signature"></span>new Player<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Sprite"><span class="type-signature"></span>new Sprite<span class="signature">(x, y, sprite)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,7 +49,7 @@
 
 
 <div class="description">
-    Creates a player object
+    Sprite class is a parent class for Enemy, Player, and Hearts(anything drawn to the screen with an image/sprite)
 </div>
 
 
@@ -101,7 +101,7 @@
 
             
 
-            <td class="description last">x-position on canvas</td>
+            <td class="description last">x-position on the canvas</td>
         </tr>
 
     
@@ -124,51 +124,20 @@
 
             
 
-            <td class="description last">y-position on canvas</td>
+            <td class="description last">y-position on the canvas</td>
         </tr>
 
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>row</code></td>
+                <td class="name"><code>sprite</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
             
@@ -178,35 +147,14 @@
 
             
 
-            <td class="description last">starting at 6, row player is currently on</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lives</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">starting with 3 number of remaining lives</td>
+            <td class="description last">the image path/file to use</td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -240,7 +188,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line130">line 130</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -285,153 +233,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="handleInput"><span class="type-signature"></span>handleInput<span class="signature">(keyCode)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Moves player when a keycode is passed from event listener
-</div>
-
-
-
-
-
-
-
-    <h5>This:</h5>
-    <ul><li>{<a href="Player.html">Player</a>}</li></ul>
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>keyCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">provided by event listener on key-ups</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line159">line 159</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-<h5>Listens to Events:</h5>
-<ul>
-    <li><a href="global.html#event:keyup">event:keyup</a></li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-        
     
 
     
