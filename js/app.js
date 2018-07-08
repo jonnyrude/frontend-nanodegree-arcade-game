@@ -32,7 +32,7 @@ Sprite.prototype.render = function () {
  * @property {number} y - y-position on canvas, set to -10
  * @property {string} sprite - set to the path/file for this .png image
  */
-const Hearts = function() {
+const Hearts = function () {
     Sprite.call(this, 2, -10, 'images/Heart-small.png');
 };
 
@@ -48,7 +48,7 @@ Hearts.prototype.constructor = Hearts;
  *
  * @method render
  */
-Hearts.prototype.render = function() {
+Hearts.prototype.render = function () {
     let heartX = this.x;
     for (let i = 0; i < player.lives; i++) {
         ctx.drawImage(Resources.get(this.sprite), heartX, this.y);
@@ -71,8 +71,8 @@ const Enemy = function (row) {
     this.row = row; // to compare with player
 
     // Create Enemy Object from Sprite Class
-    let x = - (Math.floor(Math.random() * 900) + 100);
-    let y = row === 2 ? 60: (row === 3) ? 142: 225;
+    let x = -(Math.floor(Math.random() * 900) + 100);
+    let y = row === 2 ? 60 : (row === 3) ? 142 : 225;
     Sprite.call(this, x, y, 'images/enemy-bug.png');
 
     this.speed = Math.floor((Math.random() * 300) + 200);
@@ -90,7 +90,7 @@ Enemy.prototype.constructor = Enemy;
  * @method
  * @param {number} dt - a time delta between ticks (globally provided by engine.js)
  */
-Enemy.prototype.update = function(dt) {
+Enemy.prototype.update = function (dt) {
     // Multiplying any movement by the dt parameter
     // ensures the game runs at the same speed for
     // all computers.
@@ -103,12 +103,12 @@ Enemy.prototype.update = function(dt) {
  *
  * @method
  */
-Enemy.prototype.recycle = function() {
-    if (this.x > 600){
+Enemy.prototype.recycle = function () {
+    if (this.x > 600) {
         this.x = -(Math.floor(Math.random() * 400) + 100);
-        let newRow = Math.floor((Math.random() * 3)+ 2);
+        let newRow = Math.floor((Math.random() * 3) + 2);
         this.row = newRow;
-        this.y = newRow === 2 ? 60: (newRow === 3) ? 142: 225;
+        this.y = newRow === 2 ? 60 : (newRow === 3) ? 142 : 225;
     }
 };
 
@@ -158,7 +158,7 @@ Player.prototype.constructor = Player;
  */
 Player.prototype.handleInput = function (keyCode) {
     // do not move player if game is lost, won, or paused
-    if(paused || !inPlay) {
+    if (paused || !inPlay) {
         return;
     }
 
@@ -169,15 +169,15 @@ Player.prototype.handleInput = function (keyCode) {
     switch (keyCode) {
         case 'up':
             adjustY = (this.y <= -15) ? 0 : -83;
-            adjustRow = adjustY ? - 1 : 0;
+            adjustRow = adjustY ? -1 : 0;
             break;
-            case 'left':
+        case 'left':
             adjustX = (this.x <= 0) ? 0 : -101;
             break;
-            case 'right':
+        case 'right':
             adjustX = (this.x >= 404) ? 0 : 101;
             break;
-            case 'down':
+        case 'down':
             adjustY = (this.y >= 400) ? 0 : 83;
             adjustRow = adjustY ? 1 : 0;
             break;
@@ -190,7 +190,7 @@ Player.prototype.handleInput = function (keyCode) {
     // Evaluate if player has won by reaching row 1
     if (this.row === 1) {
         this.row = 6;
-        window.setTimeout( () => {
+        window.setTimeout(() => {
             endGame(); // pop-up div
             this.x = 202;
             this.y = 400;
@@ -204,7 +204,7 @@ Player.prototype.handleInput = function (keyCode) {
  *
  * @method reset
  */
-Player.prototype.reset = function() {
+Player.prototype.reset = function () {
     this.x = 202;
     this.y = 400;
     this.row = 6;
@@ -248,7 +248,7 @@ const allEnemies = [];
  */
 (function addEnemies() {
     while (allEnemies.length < 9) {
-        let row = Math.floor((Math.random() * 3)+ 2);
+        let row = Math.floor((Math.random() * 3) + 2);
 
         let newEnemy = new Enemy(row);
         allEnemies.push(newEnemy);
@@ -263,7 +263,7 @@ const allEnemies = [];
  * @event keyup
  * @returns {string} 'left', 'up', 'right', or 'down'
  */
-document.addEventListener('keyup', function(e) {
+document.addEventListener('keyup', function (e) {
     const allowedKeys = {
         37: 'left',
         38: 'up',
@@ -296,11 +296,9 @@ document.querySelector('.avatar-selector').addEventListener('click', (event) => 
     // change avatar of player (player.sprite)
     if (selection.contains('avatar-1')) {
         player.sprite = 'images/char-boy.png';
-    }
-    else if (selection.contains('avatar-2')) {
+    } else if (selection.contains('avatar-2')) {
         player.sprite = 'images/char-horn-girl.png';
-    }
-    else if (selection.contains('avatar-3')) {
+    } else if (selection.contains('avatar-3')) {
         player.sprite = 'images/char-princess-girl.png';
     }
 
@@ -334,10 +332,9 @@ function endGame() {
     document.querySelector('button').focus();
 
     // Update win/lost message
-    if(player.lives !== -1) {
+    if (player.lives !== -1) {
         menuMessage.textContent = 'You Won! Amazing!';
-    }
-    else {
+    } else {
         menuMessage.textContent = 'Uh oh! You lost!';
     }
 
@@ -367,4 +364,3 @@ function restartGame() {
     menu.classList.toggle('hidden'); // hide menu
     document.querySelector('button').setAttribute('disabled', '');
 }
-
